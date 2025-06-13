@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Galería de Departamento</title>
+  <link rel="stylesheet" href="Proyecto 10.css">
+</head>
+<body>
+	<h1>El departamento</h1>
+<div class="gallery-container">
+  <div class="image-wrapper">
+    <button onclick="anterior()" class="nav left">&#10094;</button>
+
+    <img id="main-image" src="imagenes/livingroom.jpg" alt="Imagen principal">
+
+    <button onclick="siguiente()" class="nav right">&#10095;</button>
+  </div>
+
+  <div class="thumbnails">
+    <img src="imagenes/livingroom.jpg" alt="Sala" onclick="changeImage(this)" class="active">
+    <img src="imagenes/bedroom.jpg" alt="Recámara" onclick="changeImage(this)">
+    <img src="imagenes/livingroom2.jpg" alt="Sala adicional" onclick="changeImage(this)">
+  </div>
+</div>
+
+<script>
+  const imagenes = [
+    "imagenes/livingroom.jpg",
+    "imagenes/bedroom.jpg",
+    "imagenes/livingroom2.jpg"
+  ];
+
+  let indice = 0;
+
+  function mostrarImagen() {
+    const main = document.getElementById('main-image');
+    main.src = imagenes[indice];
+
+    const thumbs = document.querySelectorAll('.thumbnails img');
+    thumbs.forEach((img, i) => {
+      img.classList.toggle('active', i === indice);
+    });
+  }
+
+  function siguiente() {
+    indice = (indice + 1) % imagenes.length;
+    mostrarImagen();
+  }
+
+  function anterior() {
+    indice = (indice - 1 + imagenes.length) % imagenes.length;
+    mostrarImagen();
+  }
+
+  function changeImage(thumbnail) {
+    const thumbs = Array.from(document.querySelectorAll('.thumbnails img'));
+    indice = thumbs.indexOf(thumbnail);
+    mostrarImagen();
+  }
+</script>
+
+</body>
+</html>
